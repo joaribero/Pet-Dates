@@ -6,13 +6,23 @@ import Cita from './components/Cita.jsx';
 
 function App() {
 
-  //Array de citas
-  const [citas, guardarCitas] = useState([]);
+  //Local Storage
+  let citasIniciales = JSON.parse(localStorage.getItem('citas'));
+  if (!citasIniciales) {
+    citasIniciales = [];
+  };
 
-  //UseEffect
-  useEffect(() => {
-    console.log('listo');
-  })
+  //Array de citas
+  const [citas, guardarCitas] = useState(citasIniciales);
+
+  //use effect
+  useEffect( () => {
+    if (citasIniciales) {
+      localStorage.setItem('citas', JSON.stringify(citas))
+    } else {
+      localStorage.setItem('citas',JSON.stringify([]));
+    }
+  }, [citas]);
 
   //Función que toma las citas actuales y agrega la nueva
   const crearCita = cita => {
