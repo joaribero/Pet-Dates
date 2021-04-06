@@ -1,7 +1,7 @@
 import React, {Fragment, useState, useEffect} from 'react';
 import Formulario from './components/Formulario.jsx';
 import Cita from './components/Cita.jsx';
-
+import PropTypes from 'prop-types';
 
 
 function App() {
@@ -17,6 +17,9 @@ function App() {
 
   //use effect
   useEffect( () => {
+    
+    let citasIniciales = JSON.parse(localStorage.getItem('citas'));
+
     if (citasIniciales) {
       localStorage.setItem('citas', JSON.stringify(citas))
     } else {
@@ -68,5 +71,10 @@ function App() {
     
   );
 }
+
+Formulario.propTypes = {
+  crearCita: PropTypes.func.isRequired
+}
+
 
 export default App;
